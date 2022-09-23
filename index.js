@@ -15,9 +15,9 @@ if (!databaseUri) {
 const config = {
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || 'myAppId',
-  masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse', // Don't forget to change to https if needed
+  appId: process.env.APP_ID || 'MvZPPJ7ndl5Qcz7Ay1M2dUr',
+  masterKey: process.env.MASTER_KEY || 'Rr7G1ZbHTXCfmOfp8zpVa0e', //Add your master key here. Keep it secret!
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/api', // Don't forget to change to https if needed
   liveQuery: {
     classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
   },
@@ -32,7 +32,7 @@ const app = express();
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
 // Serve the Parse API on the /parse URL prefix
-const mountPath = process.env.PARSE_MOUNT || '/parse';
+const mountPath = process.env.PARSE_MOUNT || '/api';
 if (!test) {
   const api = new ParseServer(config);
   app.use(mountPath, api);
