@@ -3,6 +3,14 @@ Parse.Cloud.define('hello', req => {
   return 'Hi';
 });
 
+Parse.Cloud.define('users', req => {
+  const query = new Parse.Query(Parse.User);
+  // query.equalTo("objectId", "lltcILRljN")
+  // query.get()
+
+  // return query
+});
+
 Parse.Cloud.define('asyncFunction', async req => {
   await new Promise(resolve => setTimeout(resolve, 1000));
   req.log.info(req);
