@@ -28,6 +28,49 @@ Parse.Cloud.define('countRoom', async (request) => {
         });
 });
 
+Parse.Cloud.define('chartPayment', async (request) => {
+    const query = new Parse.Query('payment')
+    // Use Session Token to Authenticate User
+    // const result = await query.find({sessionToken: request.user.getSessionToken()})
+
+    const pipeline = [
+        {
+          '$project': {
+            'year': {
+              '$year': '$date'
+            },
+            'month': {
+              '$month': '$date'
+            },
+            'day': {
+              '$dayOfMonth': '$date'
+            },
+            'date': 1
+          }
+        }, {
+          '$match': {
+            'year': request.params.year
+          }
+        },
+        {
+          '$group': {
+            '_id': '$month',
+            'count': {
+              '$count': {}
+            }
+          }
+        }
+      ];
+
+      return query.aggregate(pipeline)
+        .then(function (results) {
+          return results;
+        })
+        .catch(function (error) {
+          throw error;
+        });
+});
+
 
 Parse.Cloud.define('users', req => {
   const query = new Parse.Query(Parse.User);
