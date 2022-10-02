@@ -7,7 +7,7 @@ const path = require('path');
 const args = process.argv || [];
 const test = args.some(arg => arg.includes('jasmine'));
 
-const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/dev';
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
@@ -17,7 +17,7 @@ const config = {
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'MvZPPJ7ndl5Qcz7Ay1M2dUr',
   masterKey: process.env.MASTER_KEY || 'Rr7G1ZbHTXCfmOfp8zpVa0e', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/api', // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'http://192.168.1.9:1337/api', // Don't forget to change to https if needed
   liveQuery: {
     classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
   },
